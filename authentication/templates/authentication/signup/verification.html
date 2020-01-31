@@ -2,6 +2,11 @@
 {% load static %}
 
 {% block content %}
-  {# type must be success or error #}
-  <div class="ui message {{ type }}">{{ message|safe }}</div>
+    <div class="ui message {{ type }}">{{ message|safe }}</div>
+
+    <script type="text/javascript">
+    setTimeout(function() {
+        window.location.href = "{% url 'home' %}"
+        }, 2000);
+    </script>
 {% endblock %}
