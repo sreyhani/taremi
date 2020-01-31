@@ -1,0 +1,7 @@
+{% extends "authentication/base.html" %}
+{% load static %}
+
+{% block content %}
+  {# type must be success or error #}
+  <div class="ui message {{ type }}">{{ message|safe }}</div>
+{% endblock %}
