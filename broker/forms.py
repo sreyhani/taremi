@@ -38,6 +38,7 @@ def render_field(answer, editable):
 def render_form(form, response=None, editable=False):
     content = ""
     i = 1
+    print(form.questions.order_by('number'))
     for q in form.questions.order_by('number'):
         if response is None:
             a = q.typed().make_answer()

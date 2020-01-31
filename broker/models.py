@@ -11,6 +11,7 @@ class ApplicationForm(models.Model):
     deadline = models.DateField("deadline", auto_now=True)
     info = models.CharField("information", max_length=1000)
 
+
     def get_responses(self):
         return ApplicationResponse.objects.filter(answers__question__form=self).distinct()
 
@@ -19,7 +20,7 @@ class Question(models.Model):
         constraints = [models.UniqueConstraint(fields=['form', 'number'], name='unique_form_number')]
 
     form = models.ForeignKey(ApplicationForm, on_delete=models.CASCADE, related_name="questions")
-    question = models.CharField("question", max_length=QUESTION_MAX_LENGTH)
+    question = models.CharField("question", max_length=QUESTION_MAX_LENGTH, blank=False, null=False)
     number = models.IntegerField()
     type = models.CharField("type", max_length=255)
 

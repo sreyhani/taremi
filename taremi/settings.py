@@ -145,3 +145,10 @@ LOGIN_REDIRECT_URL='/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap', 'uni_form', 'bootstrap3',
                                  'bootstrap4', 'semantic-ui',)
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'amir.dehghan7798@gmail.com'
+EMAIL_HOST_PASSWORD = 'bigboss1522'
+EMAIL_PORT = 587
