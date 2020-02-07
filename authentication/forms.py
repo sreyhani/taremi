@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from authentication.models import Student
+from authentication.models import Instructor
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
@@ -22,6 +23,19 @@ class StudentForm(ModelForm):
         self.fields['last_name'].required = False
         self.fields['entrance_year'].required = False
         self.fields['major'].required = False
+        self.fields['description'].required = False
+
+class InstructorForm(ModelForm):
+
+    class Meta:
+        model = Instructor
+        fields = ['first_name', 'last_name', 'rank', 'description', ]
+
+    def __init__(self, *args, **kwargs):
+        super(InstructorForm, self).__init__(*args, **kwargs)
+        self.fields['first_name'].required = False
+        self.fields['last_name'].required = False
+        self.fields['rank'].required = False
         self.fields['description'].required = False
 
 class StudentSignUpForm(UserCreationForm):

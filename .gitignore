@@ -1,2 +1,9 @@
 .idea/
 *.xml
+.__pycache__/
+.authentication/__pycache__/
+.authentication/migrations/
+.broker/__pycache__/
+.broker/migrations/
+.taremi/__pycache__/
+.db.sqlite3

@@ -4,6 +4,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.views.generic import UpdateView
+from authentication.forms import InstructorForm
+from django.urls import reverse
 
 from ..models import *
 from ..forms import render_form
@@ -56,3 +60,25 @@ def instructor_create_form(request):
                 q.save()
 
         return HttpResponse()
+
+@login_required()
+def view_profile(request):
+    instructor = request.user.instructor
+    return render(request, 'broker/instructor/view_instructor_profile.html', context={'instructor': instructor})
+
+@method_decorator([login_required], name='dispatch')
+class update_profile(UpdateView):
+    model = Instructor
+    form_class = InstructorForm
+    template_name = 'broker/instructor/update_instructor_profile.html'
+
+    def get_success_url(self):
+        return reverse('instructor_home')
+
+    def get_object(self, queryset=None):
+        return self.request.user.instructor
+
+@login_required()
+def view_student_profile(request, pk):
+    instructor = Instructor.objects.get(instructor_id=pk)
+    return render(request, 'broker/instructor/view_instructor_profile.html', context={'instructor': instructor})
