@@ -9,7 +9,7 @@
 
 # VirtualEnv
 venv/
-
+taremi/taremienve/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
