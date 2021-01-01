@@ -1,6 +1,7 @@
 from .models import *
 from django.db.models.query import EmptyQuerySet
 
+
 class AnswerRenderer:
     def __init__(self, answer):
         self.answer = answer
@@ -24,9 +25,12 @@ class TextualRenderer(AnswerRenderer):
         return """<div style="background-color:#ff6699;"> Answer : %s</div><br/>""" % self.answer.value
 
     def render_editable(self):
-        return """<input type="text" name="{name}" value="{value}"><br/>""".format(name=self.field_name, value=self.answer.value)
+        return """<input type="text" name="{name}" value="{value}"><br/>""".format(name=self.field_name,
+                                                                                   value=self.answer.value)
+
 
 renderers = {TextualAnswer: TextualRenderer, NumericalAnswer: TextualRenderer}
+
 
 def render_field(answer, editable):
     renderer = renderers[answer.__class__](answer)
@@ -34,6 +38,7 @@ def render_field(answer, editable):
         return renderer.render_editable()
     else:
         return renderer.render_fixed()
+
 
 def render_form(form, response=None, editable=False):
     content = ""
@@ -69,6 +74,7 @@ def render_form(form, response=None, editable=False):
             {content}
             </div>""".format(title=form.info, user=response.owner.get_full_name(), content=content)
 
+
 def save_form(form, data, response):
     for q in form.questions.order_by('number'):
         a = response.answers.filter(question=q).first()
@@ -80,5 +86,3 @@ def save_form(form, data, response):
 
         renderers[a.__class__](a).read_from_post(data)
         a.save()
-
-

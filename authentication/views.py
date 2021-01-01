@@ -10,7 +10,6 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
 
-
 # from .forms import *
 
 
@@ -29,12 +28,13 @@ def login_user(request):
         req = request.POST
         user = authenticate(username=req['username'], password=req['password'])
         if not user:
-            return render(request,'authentication/login.html',{'error_message': 'Wrong password'})
+            return render(request, 'authentication/login.html', {'error_message': 'Wrong password'})
         else:
             login(request, user)
             return redirect(redirect_to)
 
-    return render(request,'authentication/login.html',{})
+    return render(request, 'authentication/login.html', {})
+
 
 def logout_user(request):
     if request.user.is_authenticated:
@@ -75,8 +75,8 @@ def signup_user(request):
         print(user)
         message = render_to_string('acc_active_email.html', {
             'user': request.POST['student_id'],
-            'pk':request.POST['student_id'],
-            'token':tk,
+            'pk': request.POST['student_id'],
+            'token': tk,
         })
         print(3)
         to_email = request.POST['email']
@@ -85,17 +85,12 @@ def signup_user(request):
         email = EmailMessage(mail_subject, message, to=[to_email])
         email.send()
 
-
-
-
-
         # login(request, user)
-        return render(request, 'authentication/signup/verification.html', \
-            {'message' : 'Your account was successfully created.', 'type' : 'success'})
+        return render(request, 'authentication/signup/verification.html',
+                      {'message': 'Your account was successfully created.', 'type': 'success'})
 
+    return render(request, 'authentication/signup/signup.html', {})
 
-
-    return render(request,'authentication/signup/signup.html',{})
 
 def activate(request, uid, token):
     try:

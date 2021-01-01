@@ -11,18 +11,18 @@ class ApplicationForm(models.Model):
     deadline = models.DateField("deadline", auto_now=True)
     info = models.CharField("information", max_length=1000)
 
-
     def get_responses(self):
         return ApplicationResponse.objects.filter(answers__question__form=self).distinct()
 
-class Question(models.Model):
-    class Meta:
-        constraints = [models.UniqueConstraint(fields=['form', 'number'], name='unique_form_number')]
 
+class Question(models.Model):
     form = models.ForeignKey(ApplicationForm, on_delete=models.CASCADE, related_name="questions")
     question = models.CharField("question", max_length=QUESTION_MAX_LENGTH, blank=False, null=False)
     number = models.IntegerField()
     type = models.CharField("type", max_length=255)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['form', 'number'], name='unique_form_number')]
 
     def save(self, *args, **kwargs):
         self.type = self.__class__.__name__
@@ -41,16 +41,15 @@ class Question(models.Model):
         return self.question
 
 
-
 class ApplicationResponse(models.Model):
     owner = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='responses')
     date = models.DateField("date_submitted", auto_now=True)
     state = models.CharField(max_length=1, choices=APPLICATION_STATES)
 
     def get_form(self):
-        return self.answers.first().question.form
-    # todo
-    # constraints = for all answer in self.answers answer.question.form should be the same
+        first = self.answers.first()
+        if first:
+            return first.question.form
 
 
 class Answer(models.Model):
@@ -68,21 +67,26 @@ class Answer(models.Model):
         else:
             return self
 
+
 class TextualQuestion(Question):
     def make_answer(self):
         t = TextualAnswer()
         t.question = self
         return t
 
+
 class TextualAnswer(Answer):
     value = models.CharField('text_value', max_length=100, default="")
+
     def __str__(self):
         return self.value
+
 
 class MultiChoiceQuestion(Question):
     def make_answer(self):
         t = MultiChoiceAnswer()
         t.question = self
+
 
 class MultiChoiceAnswer(Answer):
     value = models.CharField("choice_value", max_length=CHOICE_MAX_LENGTH)
@@ -96,6 +100,7 @@ class NumericalQuestion(Question):
         t = NumericalAnswer()
         t.question = self
         return t
+
 
 class NumericalAnswer(Answer):
     value = models.IntegerField('int_value')
