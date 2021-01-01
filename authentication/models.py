@@ -7,7 +7,6 @@ from django.dispatch import receiver
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
     student_id = models.IntegerField(primary_key=True)
     major = models.CharField(null=True, max_length=2, choices=CONSTANTS.MAJORS)
     first_name = models.CharField(null=True, max_length=20)

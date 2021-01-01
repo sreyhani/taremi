@@ -12,11 +12,12 @@ from django.urls import reverse
 from ..models import *
 from ..forms import render_form
 
+
 @login_required()
 def instructor_home(request):
     user = request.user
     forms = user.instructor.forms.all()
-    return render(request, 'broker/instructor/home.html', context={'user':user, 'forms':forms })
+    return render(request, 'broker/instructor/home.html', context={'user': user, 'forms': forms})
 
 
 @login_required()
@@ -25,9 +26,9 @@ def instructor_form_detail(request, id):
     # if isinstance(form, EmptyQuerySet):
     #     # todo: error
     #     pass
-    #responses = [answer.response for answer in form.questions.first().answers.all()]
-    responses = ApplicationResponse.objects.filter(answers__question__form = form).distinct()
-    return render(request, 'broker/instructor/form.html', context={'form':form , 'responses':responses})
+    # responses = [answer.response for answer in form.questions.first().answers.all()]
+    responses = ApplicationResponse.objects.filter(answers__question__form=form).distinct()
+    return render(request, 'broker/instructor/form.html', context={'form': form, 'responses': responses})
 
 
 @login_required()
@@ -39,7 +40,8 @@ def instructor_response_detail(request, id):
     # if isinstance(response, EmptyQuerySet):
     #     # todo: error
     #     pass
-    return render(request, 'broker/instructor/response.html', context={'html':html, 'response':response})
+    return render(request, 'broker/instructor/response.html', context={'html': html, 'response': response})
+
 
 # TODO move this shit to API
 @csrf_exempt
@@ -61,10 +63,12 @@ def instructor_create_form(request):
 
         return HttpResponse()
 
+
 @login_required()
 def view_profile(request):
     instructor = request.user.instructor
     return render(request, 'broker/instructor/view_instructor_profile.html', context={'instructor': instructor})
+
 
 @method_decorator([login_required], name='dispatch')
 class update_profile(UpdateView):
@@ -77,6 +81,7 @@ class update_profile(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user.instructor
+
 
 @login_required()
 def view_student_profile(request, pk):
