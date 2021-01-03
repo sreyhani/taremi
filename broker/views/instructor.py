@@ -71,7 +71,7 @@ def view_profile(request):
 
 
 @method_decorator([login_required], name='dispatch')
-class update_profile(UpdateView):
+class update_instructor_profile(UpdateView):
     model = Instructor
     form_class = InstructorForm
     template_name = 'broker/instructor/update_instructor_profile.html'
@@ -84,6 +84,6 @@ class update_profile(UpdateView):
 
 
 @login_required()
-def view_student_profile(request, pk):
+def view_instructor(request, pk):
     instructor = Instructor.objects.get(instructor_id=pk)
     return render(request, 'broker/instructor/view_instructor_profile.html', context={'instructor': instructor})

@@ -51,13 +51,13 @@ def application_failed(request):
 
 
 @login_required()
-def view_profile(request):
+def view_student_profile(request):
     student = request.user.student
     return render(request, 'broker/student/view_student_profile.html', context={'student': student})
 
 
 @method_decorator([login_required], name='dispatch')
-class update_profile(UpdateView):
+class update_student_profile(UpdateView):
     model = Student
     form_class = StudentForm
     template_name = 'broker/student/update_profile.html'
@@ -70,6 +70,6 @@ class update_profile(UpdateView):
 
 
 @login_required()
-def view_student_profile(request, pk):
+def view_student(request, pk):
     student = Student.objects.get(student_id=pk)
     return render(request, 'broker/student/view_student_profile.html', context={'student': student})

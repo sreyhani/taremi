@@ -9,7 +9,7 @@
       <div class="ui raised segment">
           <div class="ui equal width grid">
             <div class="column middle aligned center aligned">
-                <form method="post" novalidate>
+                <form method="post" novalidate class="ui form segment">
                     {% csrf_token %}
                     {{ form|crispy }}
                     <br>

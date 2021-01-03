@@ -3,9 +3,9 @@
 
 {% block content %}
   <div class="ui main text container" style="padding-left: -10em; ">
-  <a class="fluid ui inverted secondary button" href="{% url 'view_profile' %}">View My Profile</a>
+  <a class="fluid ui inverted secondary button" href="{% url 'view_student_profile' %}">View My Profile</a>
   <br>
-  <a class="fluid ui inverted secondary button" href="{% url 'update_profile' %}">Update My Profile</a>
+  <a class="fluid ui inverted secondary button" href="{% url 'update_student_profile' %}">Update My Profile</a>
     <h1 class="ui header">List of Available Applications</h1>
     {% for form in forms %}
       <div class="ui raised segment">

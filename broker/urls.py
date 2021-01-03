@@ -14,9 +14,15 @@ urlpatterns = [
     path('instructor/form/<int:id>/', views.instructor_form_detail, name='instructor_form_detail'),
     path('instructor/res/<int:id>/', views.instructor_response_detail, name='instructor_response_detail'),
     path('api/change_response_state', api.change_response_state, name='change_response_state'),
-    path('student/view_profile/', views.view_profile, name='view_profile'),
-    path('student/update_profile/', views.update_profile.as_view(), name='update_profile'),
+
+    path('student/view_profile/', views.view_student_profile, name='view_student_profile'),
+    path('student/update_profile/', views.update_student_profile.as_view(), name='update_student_profile'),
+
     path('instructor/view_profile/', views.view_profile, name="view_instructor_profile"),
-    path('instructor/update_profile/', views.update_profile, name="update_instructor_profile"),
-    path('instructor/view_student_profile/<int:pk>', views.view_student_profile, name='view_student_profile'),
+    path('instructor/update_profile/', views.update_instructor_profile.as_view(), name="update_instructor_profile"),
+
+
+    path('instructor/view_student/<int:pk>', views.view_student, name='view_student'),
+    path('instructor/view_student/<int:pk>', views.view_instructor, name='view_instructor'),
+
 ]
