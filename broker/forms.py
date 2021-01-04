@@ -29,8 +29,29 @@ class TextualRenderer(AnswerRenderer):
                                                                                    value=self.answer.value)
 
 
-renderers = {TextualAnswer: TextualRenderer, NumericalAnswer: TextualRenderer}
+class NumericalRenderer(AnswerRenderer):
+    def read_from_post(self, post_data):
+        self.answer.value = post_data[self.field_name]
 
+    def render_fixed(self):
+        return """<div style="background-color:#ff6699;"> Answer : %s</div><br/>""" % self.answer.value
+
+    def render_editable(self):
+        return """<input type="numberInput" name="{name}" value="{value}"><br/>""".format(name=self.field_name,
+                                                                                   value=self.answer.value)
+
+
+class LongRenderer(AnswerRenderer):
+    def read_from_post(self, post_data):
+        self.answer.value = post_data[self.field_name]
+
+    def render_fixed(self):
+        return """<div style="background-color:#ff6699;"> Answer : %s</div><br/>""" % self.answer.value
+
+    def render_editable(self):
+        return """<textarea rows = "10" cols="150" name="{name}" value="{value}"></textarea><br/>""".format(name=self.field_name,
+                                                                                   value=self.answer.value)
+renderers = {TextualAnswer: TextualRenderer, NumericalAnswer: NumericalRenderer,LongAnswer: LongRenderer}
 
 def render_field(answer, editable):
     renderer = renderers[answer.__class__](answer)

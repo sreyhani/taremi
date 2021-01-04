@@ -60,9 +60,20 @@ def instructor_create_form(request):
             if request.POST["q_%d_type" % i] == "textual":
                 q = TextualQuestion(form=form, question=request.POST["q_%d_body" % i], number=i)
                 q.save()
-            elif request.POST["q_%d_type" % i] == "d":
-                q = TextualQuestion(form=form, question=request.POST["q_%d_body" % i], number=i)
+            elif request.POST["q_%d_type" % i] == "numerical":
+                q = NumericalQuestion(form=form, question=request.POST["q_%d_body" % i], number=i)
                 q.save()
+            elif request.POST["q_%d_type" % i] == "yes_or_no":
+                # q = TextualQuestion(form=form, question=request.POST["q_%d_body" % i], number=i)
+                # q.save()
+                pass
+            elif request.POST["q_%d_type" % i] == "long_question":
+                q = LongQuestion(form=form, question=request.POST["q_%d_body" % i], number=i)
+                q.save()
+            elif request.POST["q_%d_type" % i] == "file":
+                # q = TextualQuestion(form=form, question=request.POST["q_%d_body" % i], number=i)
+                # q.save()
+                pass
         return HttpResponse()
 
 

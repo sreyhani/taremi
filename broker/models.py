@@ -77,7 +77,6 @@ class TextualQuestion(Question):
 
 class TextualAnswer(Answer):
     value = models.CharField('text_value', max_length=100, default="")
-
     def __str__(self):
         return self.value
 
@@ -86,13 +85,26 @@ class MultiChoiceQuestion(Question):
     def make_answer(self):
         t = MultiChoiceAnswer()
         t.question = self
+        return t
 
 
 class MultiChoiceAnswer(Answer):
     value = models.CharField("choice_value", max_length=CHOICE_MAX_LENGTH)
-
     def __str__(self):
         return self.value
+
+
+class LongQuestion(Question):
+    def make_answer(self):
+        t = LongAnswer()
+        t.question = self
+        return t
+
+
+class LongAnswer(Answer):
+    value = models.TextField('long_text_value',)
+    def __str__(self):
+        return str(self.value)
 
 
 class NumericalQuestion(Question):
@@ -103,7 +115,7 @@ class NumericalQuestion(Question):
 
 
 class NumericalAnswer(Answer):
-    value = models.IntegerField('int_value')
+    value = models.IntegerField('int_value',default=0)
 
     def __str__(self):
         return str(self.value)

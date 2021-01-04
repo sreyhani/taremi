@@ -51,22 +51,27 @@
             state.remove(i);
         }
 
-        function add() {
+        function addTextualQuestion() {
             totalquestions = totalquestions + 1;
             state.add(types.textual)
         }
 
-        function add1() {
+        function addNumericalQuestion() {
+            totalquestions = totalquestions + 1;
+            state.add(types.numerical)
+        }
+
+        function addYesOrNoQuestion() {
             totalquestions = totalquestions + 1;
             state.add(types.yorno)
         }
 
-        function add2() {
+        function addLongQuestion() {
             totalquestions = totalquestions + 1;
             state.add(types.longquestion)
         }
 
-        function add3() {
+        function addFileQUestion() {
             totalquestions = totalquestions + 1;
             state.add(types.file)
         }
@@ -99,9 +104,32 @@
                     return content.replace("{i}", i).replace("{i}", i).replace("{i}", i).replace("{i}", i).replace("{i}", i);
                 }
             },
+            numerical: {
+                name: function () {
+                    return "numerical";
+                },
+                html: function (i) {
+                    content = ' \
+                <div class="question" id="q_{i}"> \
+                  <div class="ui fluid labeled input"> \
+                    <div class="ui label">Question {i} </div> \
+                    <input type="text" name="q_{i}_body" id="q_{i}_body" placeholder="Question body"> \
+                  </div> \
+                  \
+                  <div class="ui fluid disabled input"> \
+                    <input type="NumberInput" > \
+                  </div> \
+                  <button class="ui right floated icon button" onclick="remove({i})"> \
+                    <i class="delete icon"></i> \
+                  </button> \
+                  <br /> \
+                </div>';
+                    return content.replace("{i}", i).replace("{i}", i).replace("{i}", i).replace("{i}", i).replace("{i}", i);
+                }
+            },
             yorno: {
                 name: function () {
-                    return "yorno";
+                    return "yes_or_no";
                 },
                 html: function (i) {
                     content = ' \
@@ -123,7 +151,7 @@
             },
             longquestion: {
                 name: function () {
-                    return "longquestion";
+                    return "long_question";
                 },
                 html: function (i) {
                     content = ' \
@@ -134,7 +162,7 @@
                   </div> \
                   \
                   <div class="ui fluid disabled input"> \
-                    <input type=textarea rows = "10" cols="150"></textarea>\
+                    <textarea disabled rows = "10" cols="150"></textarea>\
                   </div> \
                   <button class="ui right floated icon button" onclick="remove({i})"> \
                     <i class="delete icon"></i> \
@@ -249,10 +277,11 @@
                     <div class="ui right floated floating dropdown icon button">
                         <i class="plus icon" ></i>
                         <div class="menu">
-                            <div class="item" onclick="add()">Text Question</div>
-                            <div class="item" onclick="add1()">Yes or No Question</div>
-                            <div class="item" onclick="add2()">Long Question</div>
-                            <div class="item" onclick="add3()">File Upload</div>
+                            <div class="item" onclick="addTextualQuestion()">Text Question</div>
+                            <div class="item" onclick="addNumericalQuestion()">Numerical Question</div>
+                            <div class="item" onclick="addYesOrNoQuestion()">Yes or No Question</div>
+                            <div class="item" onclick="addLongQuestion()">Long Question</div>
+                            <div class="item" onclick="addFileQUestion()">File Upload</div>
                         </div>
                     </div>
                 </div>
