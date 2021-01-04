@@ -25,7 +25,7 @@ class TextualRenderer(AnswerRenderer):
         return """<div style="background-color:#ff6699;"> Answer : %s</div><br/>""" % self.answer.value
 
     def render_editable(self):
-        return """<input type="text" name="{name}" value="{value}"><br/>""".format(name=self.field_name,
+        return """<input type="text" name="{name}" value="{value}" required><br/>""".format(name=self.field_name,
                                                                                    value=self.answer.value)
 
 
@@ -37,7 +37,7 @@ class NumericalRenderer(AnswerRenderer):
         return """<div style="background-color:#ff6699;"> Answer : %s</div><br/>""" % self.answer.value
 
     def render_editable(self):
-        return """<input type="number" name="{name}" value="{value}"><br/>""".format(name=self.field_name,
+        return """<input type="number" name="{name}" value="{value}" required><br/>""".format(name=self.field_name,
                                                                                    value=self.answer.value)
 
 

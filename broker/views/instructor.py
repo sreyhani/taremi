@@ -32,6 +32,13 @@ def instructor_form_detail(request, id):
 
 
 @login_required()
+def instructor_form_delete(request, id):
+    form = ApplicationForm.objects.get(id=id)
+    form.delete()
+    return render(request, 'broker/student/success.html', {'message': "Application Successfully Deleted !"})
+
+
+@login_required()
 def instructor_response_detail(request, id):
     user = request.user
     response = ApplicationResponse.objects.filter(id=id).first()

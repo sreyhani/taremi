@@ -34,7 +34,7 @@ def application(request, id):
         return render(request, 'broker/student/application.html', context={'form': form_html})
     else:
         if datetime.now().date() <= form.deadline:
-            response = ApplicationResponse(owner=request.user.student, state='p')
+            response = ApplicationResponse(application=form, owner=request.user.student, state='p')
             response.save()
             save_form(form, request.POST, response)
 
@@ -73,3 +73,11 @@ class update_student_profile(UpdateView):
 def view_student(request, pk):
     student = Student.objects.get(student_id=pk)
     return render(request, 'broker/student/view_student_profile.html', context={'student': student})
+
+
+@login_required()
+def student_response_delete(request, id):
+    student = request.user.student
+    response = student.responses.get(id=id)
+    response.delete()
+    return render(request, 'broker/student/success.html', {'message': "Your Response was successfully canceled !"})

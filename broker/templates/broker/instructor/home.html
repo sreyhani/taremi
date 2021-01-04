@@ -2,10 +2,12 @@
 {% load static %}
 
 {% block content %}
-  <div class="ui main text container" style="padding-left: -10em; ">
-    <a class="fluid ui inverted secondary button" href="{% url 'view_instructor_profile' %}">View My Profile</a>
-  <br>
-  <a class="fluid ui inverted secondary button" href="{% url 'update_instructor_profile' %}">Update My Profile</a>
+  <div class="ui main container" style="padding-left: -10em; ">
+    <div class="ui text main container" style="padding-left: -10em; ">
+      <a class="fluid ui inverted secondary button" href="{% url 'view_instructor_profile' %}">View My Profile</a>
+      <br>
+      <a class="fluid ui inverted secondary button" href="{% url 'update_instructor_profile' %}">Update My Profile</a>
+  </div>
     <h1 class="ui header">List of Applications</h1>
     {% for form in forms %}
       <div class="ui raised segment">
@@ -29,10 +31,19 @@
               </div>
 
               <div class="column middle aligned center aligned">
-                  <a class="ui animated grey button" tabindex="0" href="{% url 'instructor_form_detail' id=form.id %}">
-                    <div class="visible content">Details</div>
-                    <div class="hidden content">
-                      <i class="right arrow icon"></i>
+                  <a class="ui animated grey basic button" tabindex="0" href="{% url 'instructor_form_detail' id=form.id %}">
+                    <div class="hidden content">Details</div>
+                    <div class="visible content">
+                      <i class="eye icon"></i>
+                    </div>
+                </a>
+              </div>
+
+              <div class="column middle aligned center aligned">
+                  <a class="ui animated red button" tabindex="0" href="{% url 'instructor_form_delete' id=form.id %}">
+                    <div class="hidden content">Delete</div>
+                    <div class="visible content">
+                      <i class="trash icon"></i>
                     </div>
                 </a>
               </div>

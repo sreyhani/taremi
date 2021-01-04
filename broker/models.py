@@ -7,12 +7,18 @@ from authentication.models import Instructor, Student
 class ApplicationForm(models.Model):
     course_id = models.CharField("course_id", max_length=10)
     creator = models.ForeignKey(Instructor, on_delete=models.CASCADE, related_name='forms')
-    release_date = models.DateField("release_date", auto_now=True)
+    release_date = models.DateTimeField("release_date", auto_now=True)
     deadline = models.DateField("deadline", auto_now=False)
     info = models.CharField("information", max_length=1000)
 
+    class Meta:
+        ordering = ['-release_date',]
+
     def get_responses(self):
         return ApplicationResponse.objects.filter(answers__question__form=self).distinct()
+
+
+
 
 
 class Question(models.Model):
@@ -42,6 +48,7 @@ class Question(models.Model):
 
 
 class ApplicationResponse(models.Model):
+    application =  models.ForeignKey(ApplicationForm, on_delete=models.CASCADE, related_name='responses', null=True)
     owner = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='responses')
     date = models.DateField("date_submitted", auto_now=True)
     state = models.CharField(max_length=1, choices=APPLICATION_STATES)

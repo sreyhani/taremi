@@ -2,10 +2,12 @@
 {% load static %}
 
 {% block content %}
-  <div class="ui main text container" style="padding-left: -10em; ">
-  <a class="fluid ui inverted secondary button" href="{% url 'view_student_profile' %}">View My Profile</a>
-  <br>
-  <a class="fluid ui inverted secondary button" href="{% url 'update_student_profile' %}">Update My Profile</a>
+  <div class="ui main container" style="padding-left: -10em; ">
+    <div class="ui text main container" style="padding-left: -10em; ">
+      <a class="fluid ui inverted secondary button" href="{% url 'view_student_profile' %}">View My Profile</a>
+      <br>
+      <a class="fluid ui inverted secondary button" href="{% url 'update_student_profile' %}">Update My Profile</a>
+    </div>
     <h1 class="ui header">List of Available Applications</h1>
     {% for form in forms %}
       <div class="ui raised segment">
@@ -60,6 +62,15 @@
                   <div class="ui label {% if resp.state == 'a' %}green{% elif resp.state == 'd' %}red{% endif %}">
                     {{ resp.get_state_display }}
                   </div>
+              </div>
+
+              <div class="column middle aligned center aligned">
+                  <a class="ui animated red button" tabindex="0" href="{% url 'student_response_delete' id=resp.id %}">
+                    <div class="hidden content">Cancel</div>
+                    <div class="visible content">
+                      <i class="x icon"></i>
+                    </div>
+                </a>
               </div>
 
           </div>
