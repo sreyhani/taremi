@@ -35,6 +35,10 @@
                 alert("please fill Info field");
                 return;
             }
+            if (document.getElementById("deadline").value == "") {
+                alert("please fill Deadline field");
+                return;
+            }
             {#console.log(totalquestions);#}
             var i = 1;
             {#while(i <= totalquestions) {#}
@@ -94,7 +98,6 @@
                   </div> \
                   \
                   <div class="ui fluid disabled input"> \
-                    <input type="text" placeholder="Answer..."> \
                   </div> \
                   <button class="ui right floated icon button" onclick="remove({i})"> \
                     <i class="delete icon"></i> \
@@ -117,7 +120,6 @@
                   </div> \
                   \
                   <div class="ui fluid disabled input"> \
-                    <input type="NumberInput" > \
                   </div> \
                   <button class="ui right floated icon button" onclick="remove({i})"> \
                     <i class="delete icon"></i> \
@@ -263,7 +265,7 @@
                     <div class="ui label">Deadline</div>
                       <div class="ui input left icon">
                           <i class="calendar icon"></i>
-                          <input type="date" name="deadline" placeholder="Date/Time" required>
+                          <input id="deadline" type="date" name="deadline" placeholder="Date/Time" required>
                       </div>
                 </div>
             </h4>

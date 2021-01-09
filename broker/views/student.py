@@ -16,7 +16,7 @@ from ..models import *
 @login_required()
 def student_home(request):
     student = request.user.student
-    forms = ApplicationForm.objects.exclude(questions__answers__response__owner=student)
+    forms = ApplicationForm.objects.exclude(responses__owner=student)
     responses = student.responses.all()
 
     return render(request, 'broker/student/home.html',
