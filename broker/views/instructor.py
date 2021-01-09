@@ -22,12 +22,12 @@ def instructor_home(request):
 
 @login_required()
 def instructor_form_detail(request, id):
-    form = ApplicationForm.objects.filter(id=id).first()
+    form = ApplicationForm.objects.get(id=id)
     # if isinstance(form, EmptyQuerySet):
     #     # todo: error
     #     pass
     # responses = [answer.response for answer in form.questions.first().answers.all()]
-    responses = ApplicationResponse.objects.filter(answers__question__form=form).distinct()
+    responses = ApplicationResponse.objects.filter(application=form).distinct()
     return render(request, 'broker/instructor/form.html', context={'form': form, 'responses': responses})
 
 
@@ -41,8 +41,8 @@ def instructor_form_delete(request, id):
 @login_required()
 def instructor_response_detail(request, id):
     user = request.user
-    response = ApplicationResponse.objects.filter(id=id).first()
-    form = response.get_form()
+    response = ApplicationResponse.objects.get(id=id)
+    form = response.application
     html = render_form(form, response, False)
     # if isinstance(response, EmptyQuerySet):
     #     # todo: error

@@ -15,10 +15,7 @@ class ApplicationForm(models.Model):
         ordering = ['-release_date',]
 
     def get_responses(self):
-        return ApplicationResponse.objects.filter(answers__question__form=self).distinct()
-
-
-
+        return ApplicationResponse.objects.filter(application=self).distinct()
 
 
 class Question(models.Model):
