@@ -44,6 +44,14 @@ class Question(models.Model):
         return self.question
 
 
+class QuestionChoices(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True, related_name="choices")
+    choice_1 = models.CharField("choice 1", max_length=100, null=True)
+    choice_2 = models.CharField("choice 1", max_length=100, null=True)
+    choice_3 = models.CharField("choice 1", max_length=100, null=True)
+    choice_4 = models.CharField("choice 1", max_length=100, null=True)
+
+
 class ApplicationResponse(models.Model):
     application =  models.ForeignKey(ApplicationForm, on_delete=models.CASCADE, related_name='responses', null=True)
     owner = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='responses')

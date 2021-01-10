@@ -65,6 +65,11 @@
             state.add(types.numerical)
         }
 
+        function addChoiceQuestion() {
+            totalquestions = totalquestions + 1;
+            state.add(types.choice)
+        }
+
         function addYesOrNoQuestion() {
             totalquestions = totalquestions + 1;
             state.add(types.yorno)
@@ -119,7 +124,7 @@
                     <input type="text" name="q_{i}_body" id="q_{i}_body" placeholder="Question body"> \
                   </div> \
                   \
-                  <div class="ui fluid disabled input"> \
+                  <div class="ui fluid input"> \
                   </div> \
                   <button class="ui right floated icon button" onclick="remove({i})"> \
                     <i class="delete icon"></i> \
@@ -129,6 +134,44 @@
                     return content.replace("{i}", i).replace("{i}", i).replace("{i}", i).replace("{i}", i).replace("{i}", i);
                 }
             },
+
+            choice: {
+                name: function () {
+                    return "choice";
+                },
+                html: function (i) {
+                    content = ' \
+                <div class="question" id="q_{i}"> \
+                  <div class="ui fluid labeled input"> \
+                    <div class="ui label">Question {i} </div> \
+                    <input type="text" name="q_{i}_body" id="q_{i}_body" placeholder="Question body"> \
+                  </div> \
+                  \
+                  <div class="ui fluid input"> \
+                    <div class="ui label">choice 1 </div> \
+                    <input type="text" name="c_{i}_1" placeholder="Choice body"> \
+                  </div> \
+                  <div class="ui fluid input"> \
+                    <div class="ui label">choice 1 </div> \
+                    <input type="text" name="c_{i}_1" placeholder="Choice body"> \
+                  </div> \
+                  <div class="ui fluid input"> \
+                    <div class="ui label">choice 1 </div> \
+                    <input type="text" name="c_{i}_1" placeholder="Choice body"> \
+                  </div> \
+                  <div class="ui fluid input"> \
+                    <div class="ui label">choice 1 </div> \
+                    <input type="text" name="c_{i}_1" placeholder="Choice body"> \
+                  </div> \
+                  <button class="ui right floated icon button" onclick="remove({i})"> \
+                    <i class="delete icon"></i> \
+                  </button> \
+                  <br /> \
+                </div>';
+                    return content.replace("{i}", i).replace("{i}", i).replace("{i}", i).replace("{i}", i).replace("{i}", i).replace("{i}", i).replace("{i}", i).replace("{i}", i).replace("{i}", i);
+                }
+            },
+
             yorno: {
                 name: function () {
                     return "yes_or_no";
@@ -282,9 +325,11 @@
                         <div class="menu">
                             <div class="item" onclick="addTextualQuestion()">Text Question</div>
                             <div class="item" onclick="addNumericalQuestion()">Numerical Question</div>
-                            <div class="item" onclick="addYesOrNoQuestion()">Yes or No Question</div>
-                            <div class="item" onclick="addLongQuestion()">Long Question</div>
-                            <div class="item" onclick="addFileQUestion()">File Upload</div>
+                            <div class="item" onclick="addChoiceQuestion()">Multiple choice Question</div>
+
+                             <!-- <div class="item" onclick="addYesOrNoQuestion()">Yes or No Question</div> -->
+                             <!-- <div class="item" onclick="addLongQuestion()">Long Question</div> -->
+                             <!-- <div class="item" onclick="addFileQUestion()">File Upload</div> -->
                         </div>
                     </div>
                 </div>

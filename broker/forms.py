@@ -40,7 +40,6 @@ class NumericalRenderer(AnswerRenderer):
         return """<input type="number" name="{name}" value="{value}" required><br/>""".format(name=self.field_name,
                                                                                    value=self.answer.value)
 
-
 class LongRenderer(AnswerRenderer):
     def read_from_post(self, post_data):
         self.answer.value = post_data[self.field_name]
@@ -51,7 +50,8 @@ class LongRenderer(AnswerRenderer):
     def render_editable(self):
         return """<textarea rows = "10" cols="150" name="{name}" value="{value}"></textarea><br/>""".format(name=self.field_name,
                                                                                    value=self.answer.value)
-renderers = {TextualAnswer: TextualRenderer, NumericalAnswer: NumericalRenderer,LongAnswer: LongRenderer}
+
+renderers = {TextualAnswer: TextualRenderer, NumericalAnswer: NumericalRenderer, LongAnswer: LongRenderer}
 
 def render_field(answer, editable):
     renderer = renderers[answer.__class__](answer)
